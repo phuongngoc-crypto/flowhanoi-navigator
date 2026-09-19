@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedChuyenDiRouteImport } from './routes/_authenticated/chuyen-di'
 import { Route as AuthenticatedHoSoRouteImport } from './routes/_authenticated/ho-so'
+import { Route as AuthenticatedLichTrinhRouteImport } from './routes/_authenticated/lich-trinh'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,18 +40,25 @@ const AuthenticatedHoSoRoute = AuthenticatedHoSoRouteImport.update({
   path: '/ho-so',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLichTrinhRoute = AuthenticatedLichTrinhRouteImport.update({
+  id: '/lich-trinh',
+  path: '/lich-trinh',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/chuyen-di': typeof AuthenticatedChuyenDiRoute
   '/ho-so': typeof AuthenticatedHoSoRoute
+  '/lich-trinh': typeof AuthenticatedLichTrinhRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/chuyen-di': typeof AuthenticatedChuyenDiRoute
   '/ho-so': typeof AuthenticatedHoSoRoute
+  '/lich-trinh': typeof AuthenticatedLichTrinhRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +67,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/chuyen-di': typeof AuthenticatedChuyenDiRoute
   '/_authenticated/ho-so': typeof AuthenticatedHoSoRoute
+  '/_authenticated/lich-trinh': typeof AuthenticatedLichTrinhRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/chuyen-di' | '/ho-so'
+  fullPaths: '/' | '/auth' | '/chuyen-di' | '/ho-so' | '/lich-trinh'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/chuyen-di' | '/ho-so'
+  to: '/' | '/auth' | '/chuyen-di' | '/ho-so' | '/lich-trinh'
   id:
     | '__root__'
     | '/'
@@ -72,6 +81,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/chuyen-di'
     | '/_authenticated/ho-so'
+    | '/_authenticated/lich-trinh'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,17 +127,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHoSoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/lich-trinh': {
+      id: '/_authenticated/lich-trinh'
+      path: '/lich-trinh'
+      fullPath: '/lich-trinh'
+      preLoaderRoute: typeof AuthenticatedLichTrinhRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedChuyenDiRoute: typeof AuthenticatedChuyenDiRoute
   AuthenticatedHoSoRoute: typeof AuthenticatedHoSoRoute
+  AuthenticatedLichTrinhRoute: typeof AuthenticatedLichTrinhRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChuyenDiRoute: AuthenticatedChuyenDiRoute,
   AuthenticatedHoSoRoute: AuthenticatedHoSoRoute,
+  AuthenticatedLichTrinhRoute: AuthenticatedLichTrinhRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
