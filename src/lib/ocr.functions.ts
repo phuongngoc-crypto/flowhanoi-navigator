@@ -5,7 +5,7 @@ const GEMINI_KEY = "AQ.Ab8RN6LxkwfY0sLILX2e8hhmYZWtJeGtnMkwGLm8m6CDaqVdOQ";
 
 const PROMPT = `Bạn là trợ lý bóc tách thời khoá biểu tại Hà Nội.
 Đọc ảnh thời khoá biểu và trả về DUY NHẤT một mảng JSON, không kèm giải thích, không kèm markdown.
-Mỗi phần tử: {"title":"tên môn/ca làm","room":"phòng hoặc null","place_name":"toà nhà/cơ sở hoặc null","day_of_week":số 1-7 (2=Thứ 2 ... 7=Thứ 7, 0=Chủ nhật),"start_time":"HH:MM","end_time":"HH:MM hoặc null"}`;
+Mỗi phần tử: {"title":"tên môn/ca làm","room":"phòng hoặc null","place_name":"toà nhà/cơ sở hoặc null","day_of_week":số nguyên (1=Thứ Hai, 2=Thứ Ba, 3=Thứ Tư, 4=Thứ Năm, 5=Thứ Sáu, 6=Thứ Bảy, 0=Chủ Nhật),"start_time":"HH:MM","end_time":"HH:MM hoặc null"}`;
 
 export const parseScheduleImage = createServerFn({ method: "POST" })
   .inputValidator((data) =>
