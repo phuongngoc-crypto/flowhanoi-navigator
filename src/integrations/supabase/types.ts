@@ -14,7 +14,131 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          buffer_minutes: number
+          created_at: string
+          full_name: string
+          home_address: string | null
+          home_lat: number | null
+          home_lng: number | null
+          id: string
+          updated_at: string
+          vehicle: Database["public"]["Enums"]["vehicle_mode"]
+        }
+        Insert: {
+          buffer_minutes?: number
+          created_at?: string
+          full_name?: string
+          home_address?: string | null
+          home_lat?: number | null
+          home_lng?: number | null
+          id: string
+          updated_at?: string
+          vehicle?: Database["public"]["Enums"]["vehicle_mode"]
+        }
+        Update: {
+          buffer_minutes?: number
+          created_at?: string
+          full_name?: string
+          home_address?: string | null
+          home_lat?: number | null
+          home_lng?: number | null
+          id?: string
+          updated_at?: string
+          vehicle?: Database["public"]["Enums"]["vehicle_mode"]
+        }
+        Relationships: []
+      }
+      schedule_items: {
+        Row: {
+          address: string | null
+          created_at: string
+          day_of_week: number
+          end_time: string | null
+          id: string
+          lat: number | null
+          lng: number | null
+          note: string | null
+          place_name: string | null
+          room: string | null
+          start_time: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          day_of_week?: number
+          end_time?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          place_name?: string | null
+          room?: string | null
+          start_time: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          day_of_week?: number
+          end_time?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          place_name?: string | null
+          room?: string | null
+          start_time?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      trip_feedback: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          schedule_item_id: string | null
+          trip_date: string
+          user_id: string
+          vehicle: Database["public"]["Enums"]["vehicle_mode"] | null
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          schedule_item_id?: string | null
+          trip_date?: string
+          user_id: string
+          vehicle?: Database["public"]["Enums"]["vehicle_mode"] | null
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          schedule_item_id?: string | null
+          trip_date?: string
+          user_id?: string
+          vehicle?: Database["public"]["Enums"]["vehicle_mode"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_feedback_schedule_item_id_fkey"
+            columns: ["schedule_item_id"]
+            isOneToOne: false
+            referencedRelation: "schedule_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +147,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      vehicle_mode: "motorbike" | "car" | "bus" | "walk"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +274,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      vehicle_mode: ["motorbike", "car", "bus", "walk"],
+    },
   },
 } as const
