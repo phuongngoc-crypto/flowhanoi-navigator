@@ -58,7 +58,7 @@ function SchedulePage() {
   const days = view === "day" ? [today] : ORDER;
 
   return (
-    <main className="mx-auto max-w-3xl space-y-4 px-4 py-5">
+    <main className={`mx-auto space-y-4 px-4 py-5 ${view === "grid" ? "max-w-6xl" : "max-w-3xl"}`}>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">Thời khoá biểu</h1>
         <div className="ml-auto flex gap-2">
