@@ -230,7 +230,9 @@ function UploadModal({ onClose, onDone }: { onClose: () => void; onDone: () => v
       const XLSX = await import("xlsx");
       const buffer = await file.arrayBuffer();
       const wb = XLSX.read(buffer, { type: "array" });
-      const sheet = wb.Sheets[wb.SheetNames[0]];
+      const firstName = wb.SheetNames[0];
+      const sheet = firstName ? wb.Sheets[firstName] : undefined;
+      if (!sheet) throw new Error("File không có dữ liệu");
       const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: "" });
       await insertItems(rowsToItems(rows));
     } catch (e) {
