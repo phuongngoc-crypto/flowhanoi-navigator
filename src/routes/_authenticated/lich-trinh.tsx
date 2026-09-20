@@ -39,7 +39,7 @@ function SchedulePage() {
   const queryClient = useQueryClient();
   const [showUpload, setShowUpload] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
-  const [view, setView] = useState<"week" | "day">("week");
+  const [view, setView] = useState<"grid" | "week" | "day">("grid");
   const today = new Date().getDay();
 
   function refresh() {
