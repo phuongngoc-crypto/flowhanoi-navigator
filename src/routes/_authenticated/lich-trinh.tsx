@@ -39,7 +39,7 @@ function SchedulePage() {
   const queryClient = useQueryClient();
   const [showUpload, setShowUpload] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
-  const [view, setView] = useState<"week" | "day">("week");
+  const [view, setView] = useState<"grid" | "week" | "day">("grid");
   const today = new Date().getDay();
 
   function refresh() {
@@ -55,10 +55,10 @@ function SchedulePage() {
     }
   }
 
-  const days = view === "week" ? ORDER : [today];
+  const days = view === "day" ? [today] : ORDER;
 
   return (
-    <main className="mx-auto max-w-3xl space-y-4 px-4 py-5">
+    <main className={`mx-auto space-y-4 px-4 py-5 ${view === "grid" ? "max-w-6xl" : "max-w-3xl"}`}>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">Thời khoá biểu</h1>
         <div className="ml-auto flex gap-2">
@@ -78,7 +78,7 @@ function SchedulePage() {
       </div>
 
       <div className="flex gap-2">
-        {(["week", "day"] as const).map((v) => (
+        {(["grid", "week", "day"] as const).map((v) => (
           <button
             key={v}
             onClick={() => setView(v)}
@@ -86,13 +86,16 @@ function SchedulePage() {
               view === v ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
             }`}
           >
-            {v === "week" ? "Theo tuần" : "Hôm nay"}
+            {v === "grid" ? "Bảng giờ" : v === "week" ? "Theo tuần" : "Hôm nay"}
           </button>
         ))}
       </div>
 
       {isLoading && <p className="text-sm text-muted-foreground">Đang tải lịch…</p>}
 
+      {view === "grid" ? (
+        <TimetableGrid items={items} today={today} onRemove={remove} />
+      ) : (
       <div className="space-y-3">
         {days.map((d) => {
           const dayItems = items
