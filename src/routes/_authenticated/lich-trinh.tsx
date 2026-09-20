@@ -55,7 +55,7 @@ function SchedulePage() {
     }
   }
 
-  const days = view === "week" ? ORDER : [today];
+  const days = view === "day" ? [today] : ORDER;
 
   return (
     <main className="mx-auto max-w-3xl space-y-4 px-4 py-5">
