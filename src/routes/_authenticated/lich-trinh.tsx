@@ -78,7 +78,7 @@ function SchedulePage() {
       </div>
 
       <div className="flex gap-2">
-        {(["week", "day"] as const).map((v) => (
+        {(["grid", "week", "day"] as const).map((v) => (
           <button
             key={v}
             onClick={() => setView(v)}
@@ -86,7 +86,7 @@ function SchedulePage() {
               view === v ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
             }`}
           >
-            {v === "week" ? "Theo tuần" : "Hôm nay"}
+            {v === "grid" ? "Bảng giờ" : v === "week" ? "Theo tuần" : "Hôm nay"}
           </button>
         ))}
       </div>
