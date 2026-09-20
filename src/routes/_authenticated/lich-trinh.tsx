@@ -93,6 +93,9 @@ function SchedulePage() {
 
       {isLoading && <p className="text-sm text-muted-foreground">Đang tải lịch…</p>}
 
+      {view === "grid" ? (
+        <TimetableGrid items={items} today={today} onRemove={remove} />
+      ) : (
       <div className="space-y-3">
         {days.map((d) => {
           const dayItems = items
