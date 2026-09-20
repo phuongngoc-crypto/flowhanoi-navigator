@@ -50,11 +50,15 @@ export type SearchResult = {
 };
 
 export async function searchHanoi(query: string): Promise<SearchResult[]> {
-  if (!query.trim()) return [];
+  const q = query.trim();
+  if (!q) return [];
+  // Fuzzy Search API: bắt được cả số nhà, ngõ, ngách, phố viết tắt/sai chính tả
+  const withCity = /hà\s*nội|ha\s*noi/i.test(q) ? q : `${q}, Hà Nội`;
   const url =
-    `https://api.tomtom.com/search/2/search/${encodeURIComponent(query)}.json` +
-    `?key=${TOMTOM_KEY}&limit=6&countrySet=VN&lat=${HANOI_CENTER.lat}&lon=${HANOI_CENTER.lng}` +
-    `&radius=45000&language=vi-VN`;
+    `https://api.tomtom.com/search/2/search/${encodeURIComponent(withCity)}.json` +
+    `?key=${TOMTOM_KEY}&limit=8&countrySet=VN&lat=${HANOI_CENTER.lat}&lon=${HANOI_CENTER.lng}` +
+    `&radius=45000&language=vi-VN&typeahead=true&minFuzzyLevel=1&maxFuzzyLevel=4` +
+    `&idxSet=PAD,Addr,Str,POI,Geo&extendedPostalCodesFor=PAD,Addr&view=Unified`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Không tìm được địa chỉ, thử lại nhé");
   const json = (await res.json()) as {
