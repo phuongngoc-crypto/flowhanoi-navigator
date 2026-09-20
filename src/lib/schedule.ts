@@ -28,7 +28,7 @@ export function hhmm(time: string) {
 
 /** Số phút từ bây giờ đến lần diễn ra kế tiếp của một ca (theo thứ trong tuần). */
 export function minutesUntilNextOccurrence(item: ScheduleItem, now = new Date()) {
-  const [h, m] = hhmm(item.start_time).split(":").map(Number);
+  const [h = 0, m = 0] = hhmm(item.start_time).split(":").map(Number);
   let dayDiff = (item.day_of_week - now.getDay() + 7) % 7;
   const target = new Date(now);
   target.setDate(now.getDate() + dayDiff);

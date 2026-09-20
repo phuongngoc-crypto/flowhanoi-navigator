@@ -31,7 +31,7 @@ export function parseTime(value: unknown): string {
   }
   const m = String(value ?? "").match(/(\d{1,2})[:h.](\d{1,2})/);
   if (!m) return "07:00";
-  return `${m[1].padStart(2, "0")}:${m[2].padStart(2, "0")}`;
+  return `${String(m[1]).padStart(2, "0")}:${String(m[2]).padStart(2, "0")}`;
 }
 
 const HEADERS: Record<keyof ImportedItem, string[]> = {

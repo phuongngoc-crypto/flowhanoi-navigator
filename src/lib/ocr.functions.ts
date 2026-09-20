@@ -108,5 +108,5 @@ function extractJson(text: string): ParsedItem[] {
 function normalizeTime(value: string) {
   const m = value.match(/(\d{1,2})[:h.](\d{2})/);
   if (!m) return "07:00";
-  return `${m[1].padStart(2, "0")}:${m[2]}`;
+  return `${String(m[1]).padStart(2, "0")}:${m[2]}`;
 }

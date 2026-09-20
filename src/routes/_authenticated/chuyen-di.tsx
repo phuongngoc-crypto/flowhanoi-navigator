@@ -80,8 +80,8 @@ function TripDetail({
   homeLng,
 }: {
   item: ScheduleItem;
-  homeLat?: number | null;
-  homeLng?: number | null;
+  homeLat?: number | null | undefined;
+  homeLng?: number | null | undefined;
 }) {
   const { user, profile } = useAuth();
   const queryClient = useQueryClient();

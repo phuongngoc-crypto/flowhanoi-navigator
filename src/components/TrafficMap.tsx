@@ -4,12 +4,12 @@ import "leaflet/dist/leaflet.css";
 import { HANOI_CENTER, TOMTOM_KEY, type LatLng } from "@/lib/tomtom";
 
 type Props = {
-  from?: LatLng | null;
-  to?: LatLng | null;
-  points?: LatLng[];
-  jamSegments?: LatLng[][];
-  onPick?: (point: LatLng) => void;
-  height?: number;
+  from?: LatLng | null | undefined;
+  to?: LatLng | null | undefined;
+  points?: LatLng[] | undefined;
+  jamSegments?: LatLng[][] | undefined;
+  onPick?: ((point: LatLng) => void) | undefined;
+  height?: number | undefined;
 };
 
 function pinIcon(letter: string, color: string) {
@@ -97,7 +97,7 @@ export default function TrafficMap({
     if (points?.length) points.forEach((p) => bounds.push([p.lat, p.lng]));
     if (from) bounds.push([from.lat, from.lng]);
     if (to) bounds.push([to.lat, to.lng]);
-    if (bounds.length === 1) map.setView(bounds[0], 16);
+    if (bounds.length === 1 && bounds[0]) map.setView(bounds[0], 16);
     else if (bounds.length > 1) map.fitBounds(L.latLngBounds(bounds).pad(0.2));
   }, [from, to, points, jamSegments]);
 
